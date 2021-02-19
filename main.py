@@ -2,7 +2,7 @@
 #Person who wrote this code was Artur Poznanski, I just edited it.
 #Unsure- About two parts (1) & (2).
 #Plan- To use connect front motor to right joy stick.
-#hi hguyguyuitfttffty
+#bons turn
 
 import evdev
 import ev3dev.auto as ev3
