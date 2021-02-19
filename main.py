@@ -9,47 +9,6 @@ import threading
 import time
 
 '''
-#For the sound
-for event in gamepad.read_loop(): 
-#Megalovania code from Stephen, so if I press L2 on the PS4, it will play Megalovania from Undertale.
-    if event.type == 3:
-        if event.code == 310:
-'''
-
-Sound.speak("You have pressed L2, Megalovania shall play now...").wait() #Press L2 to play Megalovoania song.
-Sound.tone([(1174, 100, 100),
-(1174, 100, 100),
-(2349, 150, 100),
-(1760, 150, 100),
-(1661, 100, 100),
-(1567, 150, 100),
-(1396, 150, 100),
-(1174, 150, 100),
-(1396, 100, 100),
-(1567, 100, 100),
-(1046, 100, 100),
-(1046, 100, 100),
-(2349, 100, 100),
-(1760, 150, 150),
-(1661, 150, 100),
-(1567, 150, 100),
-(1396, 150, 100),
-(1174, 100, 100),
-(1396, 100, 100),
-(1576, 100, 100),
-(1975, 100, 100),
-(1975, 100, 100),
-(2349, 150, 100),
-(1760, 150, 150),
-(1661, 150, 100),
-(1567, 150, 100),
-(1396, 150, 100),
-(1174, 100, 100),
-(1396, 100, 100),
-(1567, 100, 100)
-]).wait()
-
-'''
 #Naming some button variables (from code to button)
 button_X == 305
 button_O == 306
@@ -91,6 +50,47 @@ gamepad = evdev.InputDevice(ps4dev)
 forward_speed = 0
 side_speed = 0
 running = True
+
+'''
+#For the sound
+for event in gamepad.read_loop(): 
+#Megalovania code from Stephen, so if I press L2 on the PS4, it will play Megalovania from Undertale.
+    if event.type == 3:
+        if event.code == 310:
+'''
+
+ev3.Sound.speak("You have pressed L2, Megalovania shall play now...").wait() #Press L2 to play Megalovoania song.
+ev3.Sound.tone([(1174, 100, 100),
+(1174, 100, 100),
+(2349, 150, 100),
+(1760, 150, 100),
+(1661, 100, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 150, 100),
+(1396, 100, 100),
+(1567, 100, 100),
+(1046, 100, 100),
+(1046, 100, 100),
+(2349, 100, 100),
+(1760, 150, 150),
+(1661, 150, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 100, 100),
+(1396, 100, 100),
+(1576, 100, 100),
+(1975, 100, 100),
+(1975, 100, 100),
+(2349, 150, 100),
+(1760, 150, 150),
+(1661, 150, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 100, 100),
+(1396, 100, 100),
+(1567, 100, 100)
+]).wait()
 
 #For the motor
 class MotorThread(threading.Thread):
