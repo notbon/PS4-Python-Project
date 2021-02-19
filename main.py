@@ -2,12 +2,52 @@
 #Person who wrote this code was Artur Poznanski, I just edited it.
 #Unsure- About two parts (1) & (2).
 #Plan- To use connect front motor to right joy stick.
-#bons turn
 
 import evdev
 import ev3dev.auto as ev3
 import threading
 import time
+
+'''
+#For the sound
+for event in gamepad.read_loop(): 
+#Megalovania code from Stephen, so if I press L2 on the PS4, it will play Megalovania from Undertale.
+    if event.type == 3:
+        if event.code == 310:
+'''
+
+Sound.speak("You have pressed L2, Megalovania shall play now...").wait() #Press L2 to play Megalovoania song.
+Sound.tone([(1174, 100, 100),
+(1174, 100, 100),
+(2349, 150, 100),
+(1760, 150, 100),
+(1661, 100, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 150, 100),
+(1396, 100, 100),
+(1567, 100, 100),
+(1046, 100, 100),
+(1046, 100, 100),
+(2349, 100, 100),
+(1760, 150, 150),
+(1661, 150, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 100, 100),
+(1396, 100, 100),
+(1576, 100, 100),
+(1975, 100, 100),
+(1975, 100, 100),
+(2349, 150, 100),
+(1760, 150, 150),
+(1661, 150, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 100, 100),
+(1396, 100, 100),
+(1567, 100, 100)
+]).wait()
 
 '''
 #Naming some button variables (from code to button)
@@ -90,44 +130,6 @@ for event in gamepad.read_loop():   #This loops infinitely when running = True
             side_speed = 0
         if forward_speed < 100 and forward_speed > -100:
             forward_speed = 0
-
-#For the sound
-for event in gamepad.read_loop(): 
-#Megalovania code from Stephen, so if I press L2 on the PS4, it will play Megalovania from Undertale.
-    if event.type == 3:
-        if event.code == 310:
-            Sound.speak("You have pressed L2, Megalovania shall play now...").wait() #Press L2 to play Megalovoania song.
-            Sound.tone([(1174, 100, 100),
-            (1174, 100, 100),
-            (2349, 150, 100),
-            (1760, 150, 100),
-            (1661, 100, 100),
-            (1567, 150, 100),
-            (1396, 150, 100),
-            (1174, 150, 100),
-            (1396, 100, 100),
-            (1567, 100, 100),
-            (1046, 100, 100),
-            (1046, 100, 100),
-            (2349, 100, 100),
-            (1760, 150, 150),
-            (1661, 150, 100),
-            (1567, 150, 100),
-            (1396, 150, 100),
-            (1174, 100, 100),
-            (1396, 100, 100),
-            (1576, 100, 100),
-            (1975, 100, 100),
-            (1975, 100, 100),
-            (2349, 150, 100),
-            (1760, 150, 150),
-            (1661, 150, 100),
-            (1567, 150, 100),
-            (1396, 150, 100),
-            (1174, 100, 100),
-            (1396, 100, 100),
-            (1567, 100, 100)
-            ]).wait()
 
 '''
 if event.code == 305:
