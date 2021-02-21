@@ -7,24 +7,6 @@ import threading
 import time
 from time import sleep
 
-'''
-#Naming some button variables (from code to button)
-button_X == 305
-button_O == 306
-button_triangle == 307
-button_square == 304
-button_l1 == 308
-button_l2 == 310
-button_r1 == 309
-button_r2 == 311
-button_share == 312
-button_options == 313
-button_ps == 316
-button_l3 == 314 #When you press the left joy stick.
-button_r3 == 315 #When you press the right joy stick.
-button_touchpad == 317
-'''
-
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
 
@@ -39,6 +21,7 @@ def dc_clamp(value):
 
 #To find the PS4 controller
 #Don't forget to connect to PS4 controller before running main.py
+ev3.Sound.speak("Finding a PS4 controller to connect to...").wait()
 print("Finding a PS4 controller to connect to...")
 devices = [evdev.InputDevice(fn) for fn in evdev.list_devices()]
 ps4dev = devices[0].fn
@@ -142,6 +125,7 @@ class MotorThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
+        ev3.Sound.speak("Engine should be running...")
         print("Engine should be running...")
         while running:
             self.right_motor.run_forever(speed_sp=dc_clamp(forward_speed+side_speed))
@@ -167,15 +151,21 @@ for event in gamepad.read_loop():   #This loops infinitely when running = True
             side_speed = 0
         if forward_speed < 100 and forward_speed > -100:
             forward_speed = 0
-     if event.type == 1:            #Event.type 1 is when a button is pressed
-        if event.value == 1:        #I think event.value 1 is when EV3 is on
-            if event.code == 304: #Press the square button for the EV3 to say "Bruh"
+    elif event.type == 1: #Event.type 1 is when a button is pressed
+        if event.value == 1: #I think event.value 1 is when EV3 is on
+            if event.code == 304: #Press the X button for the EV3 to say "Bruh"
                 ev3.Sound.speak("Bruh").wait()
-            if event.code == 305: #Press X button to turn of engine
-                ev3.Sound.speak("You have pressed the X button, the engine is now turning off...").wait()
-                print("You have pressed the X button, the engine is now turning off...") 
-                running = False
+            if event.code == 307: #Press the triangle button for the EV3 to say "GG, Eazy clap noob"
+                ev3.Sound.speak("GG, Easy clap noob").wait()
+            if event.code == 308: #Press the square button for the EV3 to say "This is rigged"
+                ev3.Sound.speak("This is rigged").wait()
+            if event.code == 305 and event.value == 1: #Press Circle button to turn of engine
+                ev3.Sound.speak("You have pressed the Circle button, the engine is now turning off...").wait()
+                print("You have pressed the Circle button, the engine is now turning off...") 
+                running = False 
                 time.sleep(0.5) #Wait for the motor thread to finish
+                break
+    
 
 
 
