@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 #Person who wrote this code was Artur Poznanski, I just edited it.
 #Unsure- About two parts (1) & (2).
-#Plan- To use connect front motor to right joy stick.
 
 import evdev
 import ev3dev.auto as ev3
 import threading
 import time
+from time import sleep
 
 '''
 #Naming some button variables (from code to button)
@@ -51,15 +51,42 @@ forward_speed = 0
 side_speed = 0
 running = True
 
+
+#For the writing/drawing on the LCD screen
+screen = ev3.Screen()
+
+smile = True
+
+while True:
+    screen.clear()
+
+    #Screen.draw returns a PIL.ImageDraw handle
+    screen.draw.ellipse(( 20, 20, 60, 60))
+    screen.draw.ellipse((118, 20, 158, 60))
+
+    if smile:
+        #This is for a happy face
+        screen.draw.arc((20, 80, 158, 100), 0, 180)
+    else:
+        #This is for a sad face
+        screen.draw.arc((20, 80, 158, 100), 180, 360)
+    
+    smile = not smile
+    
+    #update lcd display
+    screen.update()
+
+    break
+
 '''
 #For the sound
 for event in gamepad.read_loop(): 
-#Megalovania code from Stephen, so if I press L2 on the PS4, it will play Megalovania from Undertale.
+#Once EV3 code starts running, it will play Megalovania from Undertale.
     if event.type == 3:
         if event.code == 310:
 '''
 
-ev3.Sound.speak("You have pressed L2, Megalovania shall play now...").wait() #Press L2 to play Megalovoania song.
+ev3.Sound.speak("Battle has commenced, Megalovania shall play now...").wait() #Once EV3 has started it will play Megalovoania song.
 ev3.Sound.tone([(1174, 100, 100),
 (1174, 100, 100),
 (2349, 150, 100),
@@ -89,7 +116,20 @@ ev3.Sound.tone([(1174, 100, 100),
 (1396, 150, 100),
 (1174, 100, 100),
 (1396, 100, 100),
-(1567, 100, 100)
+(1567, 100, 100),
+(1174, 100, 100),
+(1174, 100, 100),
+(2349, 150, 100),
+(1760, 150, 100),
+(1661, 100, 100),
+(1567, 150, 100),
+(1396, 150, 100),
+(1174, 150, 100),
+(1396, 100, 100),
+(1567, 100, 100),
+(1046, 100, 100),
+(1046, 100, 100),
+(2349, 100, 100)
 ]).wait()
 
 #For the motor
@@ -119,7 +159,8 @@ motor_thread = MotorThread()
 motor_thread.setDaemon(True)
 motor_thread.start()
 
-#For PS4 button effects and what the code does in return
+#For PS4 joysticks effects and what the code does in return
+#For the event.type == 3: This means the joysticks
 for event in gamepad.read_loop():   #This loops infinitely when running = True
     if event.type == 3:             #Event.type 3 is when a joy stick is moved
         if event.code == 0:         #The X-axis on left joy stick
@@ -131,10 +172,16 @@ for event in gamepad.read_loop():   #This loops infinitely when running = True
         if forward_speed < 100 and forward_speed > -100:
             forward_speed = 0
 
-'''
-if event.code == 305:
-    print("You have pressed the X button, the engine is now turning off...") #Press X button to turn of engine
-    running = False
-    time.sleep(1) #Wait for the motor thread to finish
-break 
-'''
+#For PS4 buttons effects and what the code does in return
+#For the event.type == 1: This means the buttons
+for event in gamepad.read_loop():
+    if event.type == 1:
+            if event.code == 304: #Press the square button for the EV3 to say "Bruh"
+                ev3.Sound.speak("Bruh").wait()
+            if event.code == 305: #Press X button to turn of engine
+                ev3.Sound.speak("You have pressed the X button, the engine is now turning off...").wait()
+                print("You have pressed the X button, the engine is now turning off...") 
+                running = False
+                time.sleep(0.5) #Wait for the motor thread to finish
+
+
