@@ -157,7 +157,6 @@ motor_thread.setDaemon(True)
 motor_thread.start()
 
 #For PS4 joysticks effects and what the code does in return
-#For the event.type == 3: This means the joysticks
 for event in gamepad.read_loop():   #This loops infinitely when running = True
     if event.type == 3:             #Event.type 3 is when a joy stick is moved
         if event.code == 0:         #The X-axis on left joy stick
@@ -168,11 +167,8 @@ for event in gamepad.read_loop():   #This loops infinitely when running = True
             side_speed = 0
         if forward_speed < 100 and forward_speed > -100:
             forward_speed = 0
-
-#For PS4 buttons effects and what the code does in return
-#For the event.type == 1: This means the buttons
-for event in gamepad.read_loop():
-    if event.type == 1:
+     if event.type == 1:            #Event.type 1 is when a button is pressed
+        if event.value == 1:        #I think event.value 1 is when EV3 is on
             if event.code == 304: #Press the square button for the EV3 to say "Bruh"
                 ev3.Sound.speak("Bruh").wait()
             if event.code == 305: #Press X button to turn of engine
@@ -180,5 +176,7 @@ for event in gamepad.read_loop():
                 print("You have pressed the X button, the engine is now turning off...") 
                 running = False
                 time.sleep(0.5) #Wait for the motor thread to finish
+
+
 
 
