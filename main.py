@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#Person who wrote this code was Artur Poznanski, I just edited it.
 #Unsure- About two parts (1) & (2).
 
 import evdev
@@ -26,7 +25,6 @@ button_r3 == 315 #When you press the right joy stick.
 button_touchpad == 317
 '''
 
-#(1)Not sure what this does yet...
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
 
@@ -154,7 +152,6 @@ class MotorThread(threading.Thread):
         self.left_motor.stop()
         self.front_motor.stop()
 
-#(1)Not sure what this does yet...
 motor_thread = MotorThread()
 motor_thread.setDaemon(True)
 motor_thread.start()
